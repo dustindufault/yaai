@@ -1948,7 +1948,7 @@ function extractExtensionNumberFromChannel($channel) {
         $asteriskExt = $regs[1];
     }
 // This matches the standard cases such as SIP/### or IAX/###
-    else if (eregi('^([[:alpha:]]+)/([[:alnum:]]+)-', $channel, $channelSplit) > 0) {
+    else if (preg_match('/^([[:alpha:]]+)/([[:alnum:]]+)-/i', $channel, $channelSplit) > 0) {
         $asteriskExt = $channelSplit[2];
         logLine("Channel Matched SIP/### style regex. Ext is:" . $asteriskExt . "\n");
     } else {
@@ -2048,7 +2048,7 @@ function db_checked_query($aQuery) {
     }
 
     // Is this is a SELECT ?
-    $isSelect = eregi("^select", $query);
+    $isSelect = preg_match("/^select/i", $query);
 
     $sqlResult = $GLOBALS['db']->query($query,false);
 
